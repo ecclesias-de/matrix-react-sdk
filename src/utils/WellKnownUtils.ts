@@ -38,6 +38,7 @@ export interface IE2EEWellKnown {
      * Disables the option to enable encryption in room settings for all new and existing rooms
      */
     force_disable?: boolean;
+    disable_setup?: boolean;
     secure_backup_required?: boolean;
     secure_backup_setup_methods?: SecureBackupSetupMethod[];
 }

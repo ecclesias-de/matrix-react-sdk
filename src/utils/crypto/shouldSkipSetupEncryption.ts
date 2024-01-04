@@ -17,6 +17,7 @@ limitations under the License.
 import { MatrixClient } from "matrix-js-sdk/src/matrix";
 
 import { shouldForceDisableEncryption } from "./shouldForceDisableEncryption";
+import { shouldDisableSetupEncryption } from "./shouldDisableSetupEncryption";
 
 /**
  * If encryption is force disabled AND the user is not in any encrypted rooms
@@ -26,5 +27,6 @@ import { shouldForceDisableEncryption } from "./shouldForceDisableEncryption";
  */
 export const shouldSkipSetupEncryption = (client: MatrixClient): boolean => {
     const isEncryptionForceDisabled = shouldForceDisableEncryption(client);
-    return isEncryptionForceDisabled && !client.getRooms().some((r) => client.isRoomEncrypted(r.roomId));
+    const isEncryptionSetupDisabled = isEncryptionForceDisabled || shouldDisableSetupEncryption(client)
+    return isEncryptionSetupDisabled && !client.getRooms().some((r) => client.isRoomEncrypted(r.roomId));
 };
